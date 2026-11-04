@@ -154,6 +154,22 @@ function buildModel(list, cap) {
 }
 
 // ---- Layout: groups placed along a snail-shell (logarithmic) spiral, biggest at the heart ----
+// ---- Phones: themes follow a winding snail trail down the page instead of a spiral ----
+const isPhone = W => W < 640;
+function trailLayout(groups, W, top = 34) {
+  let y = top;
+  const sway = Math.min(64, W * 0.15);
+  groups.forEach((g, i) => {
+    g.r = g.R;
+    const half = chipW(g.key) / 2 + 8;
+    const want = W / 2 + (i % 2 ? sway : -sway);
+    g.cx = Math.max(half, Math.min(W - half, want));
+    g.cy = y + g.r;
+    y += g.r * 2 + 30;
+  });
+  return y;
+}
+
 function spiralLayout(groups, W, H, gap) {
   const k = 0.2, rho0 = groups[0] ? groups[0].R * 0.35 : 10;
   const placed = [];
@@ -280,13 +296,17 @@ function densityGlow(gGlow, x, y, name, count, maxCount, key, minCount = 1) {
 
 // ---- Top level: one glow per theme along the snail spiral ----
 function renderTop(model) {
-  const { W, H } = size();
+  const { W } = size();
+  let { H } = size();
   const cl = [...model.clusters.values()].sort((a, b) => (a.key === GROWING) - (b.key === GROWING) || b.total - a.total);
   cl.forEach(c => {
     const shown = c.members.filter(it => model.visible.has(it)).length;
-    c.R = Math.max(chipW(c.key) / 2 + 14, 30 + 15 * Math.sqrt(shown)) + (c.hidden ? 6 + 3 * Math.sqrt(c.hidden) : 0);
+    c.R = isPhone(W)
+      ? 40 + 13 * Math.sqrt(shown) + (c.hidden ? 4 + 2 * Math.sqrt(c.hidden) : 0)
+      : Math.max(chipW(c.key) / 2 + 14, 30 + 15 * Math.sqrt(shown)) + (c.hidden ? 6 + 3 * Math.sqrt(c.hidden) : 0);
   });
-  spiralLayout(cl, W, H, 64);
+  if (isPhone(W)) H = trailLayout(cl, W); else spiralLayout(cl, W, H, 64);
+  const order = new Map(cl.map((c, i) => [c.key, i]));
 
   const edgePoint = (a, b) => {
     const dx = b.cx - a.cx, dy = b.cy - a.cy, d = Math.hypot(dx, dy) || 1;
@@ -296,7 +316,8 @@ function renderTop(model) {
   };
   const nodes = [...model.visible].map(it => {
     const cs = it.keys.map(k => model.clusters.get(k));
-    const bridge = cs.length === 2;
+    // On phones only next-door themes share a dot between them; otherwise it sits with its first theme
+    const bridge = cs.length === 2 && (!isPhone(W) || Math.abs(order.get(cs[0].key) - order.get(cs[1].key)) === 1);
     const [tx, ty] = bridge ? edgePoint(cs[0], cs[1]) : [cs[0].cx, cs[0].cy];
     return { item: it, r: 5.5, tx, ty, bridge, spread: bridge ? 10 : cs[0].r };
   });
@@ -349,8 +370,9 @@ function renderInside(model, key) {
   const { W } = size();
   const groups = TYPES.map(t => ({ t, key: t.plural, members: c.members.filter(it => it.type === t.key) })).filter(g => g.members.length);
   groups.forEach(g => { g.R = Math.max(chipW(g.key) / 2 + 14, 30 + 17 * Math.sqrt(g.members.length)); });
-  const H = Math.max(460, Math.min(W < 640 ? 920 : 720, 280 + 60 * Math.sqrt(c.total) * (W < 640 ? 1.6 : 1)));
-  spiralLayout(groups, W, H, 70);
+  let H = Math.max(460, Math.min(720, 280 + 60 * Math.sqrt(c.total)));
+  if (isPhone(W)) { groups.forEach(g => { g.R = 36 + 13 * Math.sqrt(g.members.length); }); H = trailLayout(groups, W); }
+  else spiralLayout(groups, W, H, 70);
   const nodes = [];
   groups.forEach(g => g.members.forEach(it => nodes.push({ item: it, g, r: 7.5, tx: g.cx, ty: g.cy, spread: g.r })));
   scatter(nodes, W, H, 5, groups.map(g => chipSpot(g.cx, g.cy, g.key)));
@@ -382,7 +404,7 @@ function renderInside(model, key) {
 // The "start here" row is gone; its space is kept on the home page so the map stays where it was.
 function renderStart() {
   $('start').innerHTML = '';
-  $('start').style.height = '36px';
+  $('start').style.height = isPhone($('map').clientWidth || 900) ? '0px' : '36px';
 }
 
 function renderLegend(model) {

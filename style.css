@@ -191,3 +191,7 @@ h1 {
 .about-page p { margin: 0; line-height: 1.7; }
 .about-page a { color: var(--ink); }
 @media (max-width: 760px) { .head .nav { justify-self: start; padding-top: 0; } }
+@media (max-width: 640px) {
+  .legend { font-size: 12px; gap: 4px 12px; }
+  .wrap { gap: 16px; }
+}
