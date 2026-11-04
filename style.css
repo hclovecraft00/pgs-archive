@@ -60,7 +60,7 @@ button, select { font: inherit; color: inherit; }
 .proto select { border: 1px solid rgba(38,34,29,.25); border-radius: 6px; background: var(--card); padding: 2px 6px; }
 
 header.head { display: grid; gap: 18px 56px; padding-top: 18px; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); align-items: start; }
-.head .left { display: grid; gap: 14px; justify-items: start; min-width: 0; }
+.head .left { display: grid; gap: 28px; justify-items: start; min-width: 0; }
 .head .about { display: grid; gap: 10px; min-width: 0; align-content: start; }
 .head .about h2 { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 760px) { header.head { grid-template-columns: 1fr; } }
