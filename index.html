@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Resources · Postgrowth Singapore</title>
+<meta name="description" content="What Postgrowth Singapore has been reading, watching and sharing: a growing archive of post-growth resources, gathered by theme.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Didact+Gothic&display=swap">
+<style>
+/* Layout: a white page; two-column header; clusters are soft green heat-glows of ink dots along a snail-shell spiral, biggest at the heart, newest themes at the growing tip. Theme names are flat chips. Dot shape = kind of resource. Deliberately light-only. */
+:root {
+  color-scheme: light;
+  --paper: #ffffff;
+  --card: #ffffff;
+  --ink: #26221d;
+  --muted: #6f665b;
+  --rule: rgba(96, 118, 170, 0.20);   /* notebook lines */
+  --brick: #9b3428;                    /* the handwritten red */
+  --trail: rgba(38, 34, 29, 0.28);
+  /* One ink per theme (dots + label). The heat underneath is always the same green. */
+  --c0: #b23a2b;  /* brick */
+  --c1: #2b6f8a;  /* deep teal */
+  --c2: #c4881a;  /* ochre */
+  --c3: #6e4c9e;  /* plum */
+  --c4: #d0602f;  /* terracotta */
+  --c5: #2f3f78;  /* navy */
+  --c6: #b8417a;  /* rose */
+  --c7: #7a5634;  /* bark */
+  --c-growing: #4f8a2c;  /* young green */
+
+  /* Type A: Mono (the old postgrowthsg.wordpress.com body face, used everywhere). Switchable in the prototype bar. */
+  --f-head: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-head-weight: 500;
+  --f-body: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --chip-char: 8.1;
+}
+/* Type B: old site — DM Mono body, geometric headings (Didact Gothic stands in for TeX Gyre Adventor) */
+
+/* Type C: plain HTML — the browser's own serif */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+html { background: var(--paper); }
+body {
+  color: var(--ink);
+  background-color: var(--paper);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 56px;
+  min-height: 100%;
+}
+.wrap { max-width: 1160px; margin: 0 auto; display: grid; gap: 22px; }
+button, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px dashed var(--brick); outline-offset: 3px; }
+
+.proto {
+  margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px;
+  font-size: 13px; color: var(--muted); border: 1.5px dashed rgba(38,34,29,.25); border-radius: 10px; padding: 8px 14px;
+  background: rgba(251, 247, 239, 0.6);
+}
+.proto strong { color: var(--ink); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 11px; }
+.proto label { display: inline-flex; align-items: center; gap: 8px; }
+.proto input[type=range] { width: 100px; accent-color: var(--brick); }
+.proto output { font-variant-numeric: tabular-nums; color: var(--ink); min-width: 2ch; }
+.proto input[type=checkbox] { accent-color: var(--brick); }
+.proto select { border: 1px solid rgba(38,34,29,.25); border-radius: 6px; background: var(--card); padding: 2px 6px; }
+
+header.head { display: grid; gap: 18px 56px; padding-top: 18px; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); align-items: start; }
+.head .left { display: grid; gap: 14px; justify-items: start; min-width: 0; }
+.head .about { display: grid; gap: 10px; min-width: 0; align-content: start; }
+.head .about h2 { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 760px) { header.head { grid-template-columns: 1fr; } }
+.logo { width: 72px; height: auto; display: block; }
+.shape { display: inline-block; flex: none; overflow: visible; vertical-align: middle; }
+h1 {
+  font-family: var(--f-head); font-weight: var(--f-head-weight);
+  font-size: clamp(28px, 4.6vw, 46px); line-height: 1.08; margin: 0; letter-spacing: -0.02em; text-wrap: balance; max-width: none;
+}
+.lede { max-width: 58ch; margin: 2px 0 0; color: var(--muted); }
+
+.start { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.start .lbl { font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 9px; border: 1.5px solid var(--ink); background: var(--card);
+  border-radius: 999px; padding: 6px 14px 6px 11px; font-size: 14px; cursor: pointer; max-width: 100%;
+}
+.chip:hover { background: #f3f5ef; }
+.chip i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.bar { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: flex-end; justify-content: space-between; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13.5px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend .ring { width: 13px; height: 13px; border: 1.5px solid var(--ink); background: transparent; }
+.crumb { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; min-height: 30px; }
+.back { background: none; border: 0; padding: 0; color: var(--muted); cursor: pointer; font-family: var(--f-body); font-size: 15px; font-weight: 500; line-height: 1; }
+.back:hover { text-decoration: underline; }
+.crumb h2 { font-family: var(--f-head); font-weight: var(--f-head-weight); font-size: clamp(26px, 4vw, 36px); margin: 0; line-height: 1; }
+.crumb .counts { color: var(--muted); font-size: 14px; }
+
+.map { position: relative; }
+.map svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hit { fill: transparent; cursor: pointer; }
+.clabel { cursor: pointer; }
+.clabel .pill { fill: var(--card); stroke: var(--ink); stroke-width: 1.5; }
+.clabel.static { cursor: default; }
+.deep { opacity: 0; transition: opacity .7s ease; pointer-events: none; }
+.deep.on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .deep { transition: none; } }
+.clabel .name { font-family: var(--f-body); font-size: 13px; fill: var(--ink); }
+.clabel .meta { font-family: var(--f-body); font-size: 12.5px; fill: var(--muted); }
+.clabel .more { fill: var(--brick); }
+.clabel:hover .pill, .clabel:focus-visible .pill, .clabel.hot .pill { fill: #f3f5ef; }
+.clabel:focus { outline: none; }
+.trail { fill: none; stroke: var(--trail); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 0.1 9; }
+.link { stroke: var(--ink); stroke-opacity: .32; stroke-width: 1; stroke-dasharray: 3 4; fill: none; }
+.node { cursor: pointer; }
+.node .dot { stroke: var(--card); stroke-width: 1.2; }
+.node .dot.two { stroke-width: 2.6; }
+.node circle.pin { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.node circle.bridge { fill: none; stroke: var(--ink); stroke-opacity: .5; stroke-width: 1; stroke-dasharray: 2 2; }
+.node:hover .dot, .node:focus-visible .dot, .node.sel .dot { filter: drop-shadow(0 0 2px rgba(38,34,29,.55)); }
+.node:focus { outline: none; }
+.fade { animation: fadein .5s ease both; }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+.tip {
+  position: absolute; pointer-events: none; background: var(--card); border: 1.5px solid var(--ink);
+  border-radius: 8px; padding: 7px 11px; font-size: 13.5px; max-width: 260px;
+}
+.tip b { font-weight: 500; display: block; line-height: 1.3; margin-bottom: 3px; }
+.tip small { color: var(--muted); font-size: 12.5px; }
+
+.list { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.list section { min-width: 0; }
+.list h3 { font-family: var(--f-body); font-weight: 600; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; display: flex; gap: 9px; align-items: center; line-height: 1.2; }
+.list h3 i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.list ul { list-style: none; margin: 0; padding: 0; }
+.list li { border-bottom: 1px solid var(--rule); }
+.list li button {
+  background: none; border: 0; padding: 7px 0 6px; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 10px; justify-content: space-between; align-items: baseline;
+}
+.list li button:hover .t { color: var(--brick); }
+.list .t { min-width: 0; }
+.list .d { font-size: 13px; color: var(--muted); flex: none; font-variant-numeric: tabular-nums; }
+
+.panel {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(390px, 100%); z-index: 20;
+  background: var(--card);
+  border-left: 1.5px solid var(--ink);
+  padding: calc(22px + env(safe-area-inset-top, 0px)) calc(24px + env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) 24px;
+  overflow-y: auto; transform: translateX(105%); transition: transform .3s ease;
+  display: grid; gap: 14px; align-content: start;
+}
+.panel.open { transform: none; }
+.panel .x { justify-self: end; background: var(--card); border: 1.5px solid var(--ink); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 15px; line-height: 1; }
+.panel .type { font-family: var(--f-body); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); line-height: 1; display: inline-flex; gap: 9px; align-items: center; }
+.panel .type i { width: 10px; height: 10px; border-radius: 50%; }
+.panel h3 { font-family: var(--f-head); font-weight: var(--f-head-weight); font-size: 26px; line-height: 1.08; margin: 0; text-wrap: balance; }
+.panel .meta { font-size: 13.5px; color: var(--muted); }
+.panel .meta .todo { color: var(--brick); }
+.panel p { margin: 0; }
+.panel .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.panel .tags button { border: 1.5px solid var(--ink); background: var(--paper); border-radius: 999px; padding: 2px 11px; font-size: 13px; cursor: pointer; }
+.panel .tags button:hover { background: var(--ink); color: var(--card); }
+.panel .tags .loose { border-style: dashed; }
+.panel .tags .extra { border: 1px dashed var(--muted); border-radius: 999px; padding: 2px 11px; font-size: 13px; color: var(--muted); }
+.panel .archived { font-size: 13.5px; color: var(--muted); justify-self: start; }
+.panel .open-link { display: inline-block; background: var(--ink); color: var(--card); text-decoration: none; border-radius: 999px; padding: 9px 18px; font-weight: 600; justify-self: start; }
+.panel .open-link:hover { background: var(--brick); }
+.panel .ex { color: var(--brick); font-size: 14px; }
+.panel h4 { margin: 8px 0 0; font-family: var(--f-body); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); line-height: 1; }
+.panel .near { display: grid; }
+.panel .near button { background: none; border: 0; padding: 6px 0; text-align: left; cursor: pointer; display: flex; gap: 9px; align-items: baseline; }
+.panel .near button i { width: 8px; height: 8px; border-radius: 50%; flex: none; transform: translateY(-1px); }
+.panel .near button:hover { color: var(--brick); }
+.note { font-size: 14px; color: var(--muted); max-width: 70ch; margin: 0; }
+.note b { font-weight: 500; color: var(--ink); }
+
+@media (max-width: 640px) {
+  .panel { top: auto; width: 100%; max-height: 80%; border-left: 0; border-top: 1.5px solid var(--ink); border-radius: 16px 16px 0 0; transform: translateY(105%); padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  .logo { width: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel, .chip { transition: none; }
+  .fade { animation: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div class="left">
+    <img class="logo" src="logo.png" alt="Post-Growth SG">
+    <h1>What we’ve been reading, watching &amp; sharing</h1>
+    </div>
+    <div class="about">
+      <h2>About</h2>
+      <p class="lede">Each dot is one resource, and its shape shows what kind. The deeper the green, the more we’ve gathered on that theme. A dot sitting between two patches belongs to both. Tap a theme to browse our repository.</p>
+    </div>
+  </header>
+
+  <div class="start-gap" id="start" aria-hidden="true"></div>
+
+  <div class="bar">
+    <div class="crumb" id="crumb"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <div class="map" id="map"><p class="note" id="status">Loading the archive…</p><div class="tip" id="tip" hidden></div></div>
+
+  <div class="list" id="list"></div>
+
+  <p class="note" id="foot"></p>
+</div>
+
+<aside class="panel" id="panel" aria-label="Resource details" aria-hidden="true"></aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const TYPES = [
+  { key: 'research',  label: 'Research',  plural: 'Research' },
+  { key: 'book',      label: 'Book',      plural: 'Books' },
+  { key: 'article',   label: 'Article',   plural: 'Articles' },
+  { key: 'podcast',   label: 'Podcast',   plural: 'Podcasts' },
+  { key: 'video',     label: 'Video',     plural: 'Videos' },
+  { key: 'community', label: 'Community', plural: 'Communities' },
+  { key: 'post',      label: 'Post',      plural: 'Posts' },
+  { key: 'zine',      label: 'Zine / own writing', plural: 'Zines & own writing' },
+];
+const TYPE = Object.fromEntries(TYPES.map(t => [t.key, t]));
+// One green for all the heat. Each theme gets its own ink for its dots and label; the kind of resource is shown by shape.
+const HEAT = '196,226,160';
+const symbolHexagon = { draw(ctx, size) { const r = Math.sqrt(size / 2.598); for (let i = 0; i < 6; i++) { const a = Math.PI / 3 * i - Math.PI / 2; i ? ctx.lineTo(r * Math.cos(a), r * Math.sin(a)) : ctx.moveTo(r * Math.cos(a), r * Math.sin(a)); } ctx.closePath(); } };
+const SHAPES = { article: d3.symbolCircle, research: d3.symbolSquare, book: d3.symbolTriangle, podcast: d3.symbolDiamond, video: d3.symbolStar, community: d3.symbolWye, post: d3.symbolCross, zine: symbolHexagon };
+const SHAPE_SCALE = { article: 1, research: .85, book: 1.15, podcast: .9, video: 1.25, community: 1.1, post: 1, zine: 1 };
+const symbolPath = (type, r) => d3.symbol(SHAPES[type], Math.PI * r * r * SHAPE_SCALE[type])();
+const shapeSvg = (type, col, r = 5) => `<svg class="shape" width="${r * 2 + 4}" height="${r * 2 + 4}" viewBox="${-r - 2} ${-r - 2} ${r * 2 + 4} ${r * 2 + 4}" aria-hidden="true"><path d="${symbolPath(type, r)}" fill="${col}"/></svg>`;
+const colOf = () => 'var(--ink)';
+
+// ---- Data: the Entries tab of the "PGS Archive" Sheet ----
+// Paste the Entries tab's published CSV address here (Sheet → File → Share → Publish to web → Entries → CSV).
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZph6kku3wif6ZlfGvXMd1JxYD3gfL-FUz3KhKnOc8pSKM3Bg6Mme8QQ-o7P3kolewbCJZb_ct7jGO/pub?gid=123615819&single=true&output=csv';
+// A copy of the data kept with the site, used if the Sheet can't be reached.
+const SNAPSHOT_URL = 'data/entries.csv';
+let ITEMS = [];
+
+function parseCSV(text) {
+  const rows = []; let row = [], field = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else q = false; } else field += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ',') { row.push(field); field = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(field); rows.push(row); row = []; field = ''; }
+    else field += ch;
+  }
+  if (field || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(c => c.trim()));
+}
+function typeKey(t) {
+  const k = String(t || '').trim().toLowerCase();
+  if (TYPE[k]) return k;
+  if (k.startsWith('zine') || k.includes('own writing')) return 'zine';
+  return 'article';
+}
+/** Sheet rows → resources. Only live rows with a title and a first theme are shown. */
+function toItems(rows) {
+  const [head, ...body] = rows;
+  const col = name => head.findIndex(h => h.trim().toLowerCase() === name);
+  const C = { id: col('id'), status: col('status'), title: col('title'), link: col('link'), type: col('type'), t1: col('theme 1'), t2: col('theme 2'),
+    extra: col('extra tags'), date: col('date'), authors: col('authors'), desc: col('description'), shared: col('shared by'), added: col('date added'), archive: col('archive link') };
+  const get = (r, k) => (C[k] >= 0 ? String(r[C[k]] || '') : '').trim();
+  return body.filter(r => get(r, 'status').toLowerCase() === 'live' && get(r, 'title') && get(r, 't1')).map(r => ({
+    id: get(r, 'id') || get(r, 'title'), title: get(r, 'title'), link: get(r, 'link'), type: typeKey(get(r, 'type')),
+    tags: [get(r, 't1'), get(r, 't2')].filter(Boolean), extra: get(r, 'extra').split(',').map(x => x.trim()).filter(Boolean),
+    date: get(r, 'date'), authors: get(r, 'authors'), desc: get(r, 'desc'), shared_by: get(r, 'shared'), added: get(r, 'added'),
+    archive: /^https?:/.test(get(r, 'archive')) ? get(r, 'archive') : '',
+  }));
+}
+async function load() {
+  for (const url of [SHEET_CSV_URL, SNAPSHOT_URL].filter(Boolean)) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) continue;
+      const list = toItems(parseCSV(await res.text()));
+      if (list.length) { ITEMS = list; return true; }
+    } catch (e) { /* try the next source */ }
+  }
+  return false;
+}
+
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+
+const GROWING = 'Still growing';
+const MAX_CLUSTERS = 8;
+const state = { view: null, cap: 10, sel: null };
+const $ = id => document.getElementById(id);
+const slug = s => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const fmtDate = d => {
+  if (!d) return '';
+  const [y, m] = d.split('-');
+  return m ? new Date(+y, +m - 1).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : y;
+};
+const byRecent = (a, b) => (b.added || '').localeCompare(a.added || '') || (b.date || '0').localeCompare(a.date || '0') || a.title.localeCompare(b.title);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const items = () => ITEMS;
+
+
+
+// ---- Model: tags -> at most 8 clusters + Still growing, caps, bridges ----
+function buildModel(list, cap) {
+  const count = new Map();
+  list.forEach(it => new Set(it.tags.slice(0, 2)).forEach(t => count.set(t, (count.get(t) || 0) + 1)));
+  const ranked = [...count.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(e => e[0]);
+  const overflow = ranked.length > MAX_CLUSTERS;
+  const top = new Set(overflow ? ranked.slice(0, MAX_CLUSTERS) : ranked);
+  const keyOf = t => top.has(t) ? t : GROWING;
+  const clusters = new Map();
+  [...top, ...(overflow ? [GROWING] : [])].forEach((k, i) => clusters.set(k, {
+    key: k, members: [], folded: k === GROWING ? ranked.slice(MAX_CLUSTERS) : null,
+    col: k === GROWING ? 'var(--c-growing)' : `var(--c${i % 8})`,
+  }));
+  list.forEach(it => {
+    it.keys = [...new Set(it.tags.slice(0, 2).map(keyOf))];
+    it.keys.forEach(k => clusters.get(k).members.push(it));
+  });
+  const visible = new Set();
+  clusters.forEach(c => { c.members.sort(byRecent); c.members.slice(0, cap).forEach(it => visible.add(it)); });
+  clusters.forEach(c => { c.hidden = c.members.filter(it => !visible.has(it)).length; c.total = c.members.length; });
+  return { clusters, visible, list };
+}
+
+// ---- Layout: groups placed along a snail-shell (logarithmic) spiral, biggest at the heart ----
+function spiralLayout(groups, W, H, gap) {
+  const k = 0.2, rho0 = groups[0] ? groups[0].R * 0.35 : 10;
+  const placed = [];
+  let theta = 0;
+  groups.forEach((g, i) => {
+    if (i === 0) { g.ux = 0; g.uy = 0; placed.push(g); return; }
+    for (;; theta += 0.02) {
+      const rho = rho0 * Math.exp(k * theta) + theta * 6;
+      const x = Math.cos(theta) * rho, y = Math.sin(theta) * rho;
+      if (placed.every(p => Math.hypot(p.ux - x, p.uy - y) >= p.R + g.R + gap)) { g.ux = x; g.uy = y; placed.push(g); break; }
+      if (theta > 200) { g.ux = x; g.uy = y; placed.push(g); break; }
+    }
+  });
+  const x0 = d3.min(groups, g => g.ux - g.R), x1 = d3.max(groups, g => g.ux + g.R);
+  const y0 = d3.min(groups, g => g.uy - g.R), y1 = d3.max(groups, g => g.uy + g.R);
+  const top = 70, bottom = 20, side = 18;
+  const s = Math.min((W - side * 2) / (x1 - x0), (H - top - bottom) / (y1 - y0), 1.25);
+  const sx = Math.min((W - side * 2) / (x1 - x0), s * 1.3);   // let wide screens breathe sideways
+  const cxm = (x0 + x1) / 2, cym = (y0 + y1) / 2;
+  groups.forEach(g => { g.cx = W / 2 + (g.ux - cxm) * sx; g.cy = top + (H - top - bottom) / 2 + (g.uy - cym) * s; g.r = g.R * s; });
+  return s;
+}
+
+// Organic scatter: each dot gets a loose home near its theme, then a light nudge so dots don't overlap
+// and keep clear of every theme chip (chips sit at the centre of their glow).
+function avoidChips(obstacles) {
+  let nodes = [];
+  function force() {
+    for (const n of nodes) for (const o of obstacles) {
+      let dx = n.x - o.x, dy = n.y - o.y;
+      const ea = o.a + n.r + 4, eb = o.b + n.r + 4;
+      const k = (dx * dx) / (ea * ea) + (dy * dy) / (eb * eb);
+      if (k < 1) {
+        if (k < 1e-6) { dx = 0; dy = n.y <= o.y ? -1 : 1; }
+        const kk = Math.max(k, 1e-6), s = 1 / Math.sqrt(kk);
+        n.x += (o.x + dx * s - n.x) * 0.6; n.y += (o.y + dy * s - n.y) * 0.6;
+      }
+    }
+  }
+  force.initialize = ns => { nodes = ns; };
+  return force;
+}
+function scatter(nodes, W, H, seed, obstacles = []) {
+  const r = mulberry32(seed);
+  const gauss = () => { let u = 0, v = 0; while (!u) u = r(); while (!v) v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  nodes.forEach(n => {
+    const spread = n.spread * 0.55;
+    n.hx = n.tx + gauss() * spread; n.hy = n.ty + gauss() * spread * 0.85;
+    n.x = n.hx; n.y = n.hy;
+  });
+  const sim = d3.forceSimulation(nodes)
+    .force('x', d3.forceX(d => d.hx).strength(d => d.bridge ? .35 : .16))
+    .force('y', d3.forceY(d => d.hy).strength(d => d.bridge ? .35 : .16))
+    .force('collide', d3.forceCollide(d => d.r + 2.5).iterations(2))
+    .force('chips', avoidChips(obstacles))
+    .stop();
+  for (let i = 0; i < 200; i++) sim.tick();
+  nodes.forEach(n => { n.x = Math.max(n.r + 4, Math.min(W - n.r - 4, n.x)); n.y = Math.max(n.r + 4, Math.min(H - n.r - 4, n.y)); });
+}
+
+function size() {
+  const W = $('map').clientWidth || 900;
+  const H = W < 640 ? Math.max(600, W * 1.55) : Math.min(780, Math.max(560, W * 0.64));
+  return { W, H };
+}
+
+function defsFor(svg, list) {
+  const defs = svg.append('defs');
+  list.forEach(([id, rgb, a]) => {
+    const g = defs.append('radialGradient').attr('id', id);
+    g.append('stop').attr('offset', '0%').attr('stop-color', `rgb(${rgb})`).attr('stop-opacity', a);
+    g.append('stop').attr('offset', '62%').attr('stop-color', `rgb(${rgb})`).attr('stop-opacity', a * 0.55);
+    g.append('stop').attr('offset', '100%').attr('stop-color', `rgb(${rgb})`).attr('stop-opacity', 0);
+  });
+}
+
+function nodeGroup(sel, data, markBridges, inside) {
+  const g = sel.selectAll('g.node').data(data).join('g')
+    .attr('class', d => 'node' + (state.sel === d.item.id ? ' sel' : ''))
+    .attr('transform', d => `translate(${d.x},${d.y})`)
+    .attr('tabindex', 0).attr('role', 'button')
+    .attr('aria-label', d => `${d.item.title}, ${TYPE[d.item.type].label}`)
+    .on('click', (e, d) => openPanel(d.item))
+    .on('keydown', (e, d) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(d.item); } })
+    .on('mouseenter focus', (e, d) => showTip(d))
+    .on('mouseleave blur', hideTip);
+  const cl = current.clusters;
+  // Fill = the theme it sits in (inside a theme: that theme). A second theme shows as a thick outline in that theme's ink.
+  const fillOf = () => 'var(--ink)';
+  const ringOf = () => null;
+  g.append('path').attr('class', d => 'dot' + (ringOf(d) ? ' two' : '')).attr('d', d => symbolPath(d.item.type, d.r))
+    .style('fill', fillOf).style('stroke', d => ringOf(d) || 'var(--card)')
+    .attr('fill-opacity', d => d.item.example ? .5 : 1);
+}
+
+// A theme chip (or group chip) with its count underneath, centred on (x, y).
+const chipW = name => name.length * (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--chip-char')) || 8.1) + 28;
+function labelFor(gLab, x, y, name, metaText, moreText, onOpen, aria) {
+  const lab = gLab.append('g').attr('class', 'clabel' + (onOpen ? '' : ' static')).attr('data-k', name);
+  if (onOpen) lab.attr('tabindex', 0).attr('role', 'button').attr('aria-label', aria)
+    .on('click', onOpen).on('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(); } });
+  const pill = lab.append('rect').attr('class', 'pill');
+  const t = lab.append('text').attr('class', 'name').attr('x', x).attr('y', y + 5).attr('text-anchor', 'middle').text(name.toLowerCase());
+  let tw = chipW(name) - 28;
+  try { const l = t.node().getComputedTextLength(); if (l > 0) tw = l; } catch (e) {}
+  pill.attr('x', x - tw / 2 - 14).attr('y', y - 13).attr('width', tw + 28).attr('height', 26).attr('rx', 13);
+  const m = lab.append('text').attr('class', 'meta').attr('x', x).attr('y', y + 30).attr('text-anchor', 'middle');
+  m.append('tspan').text(metaText);
+  if (moreText) m.append('tspan').attr('class', 'more').text('  ' + moreText);
+  return lab;
+}
+// Where the chip sits (its centre) and the area dots keep clear of (chip + count line).
+const chipSpot = (x, y, name) => ({ x, y: y + 8, a: chipW(name) / 2 + 4, b: 30 });
+// One glow per theme, centred on its chip. It shows density, not extent:
+// a little larger and much darker the more items the theme holds.
+function densityGlow(gGlow, x, y, name, count, maxCount, key, minCount = 1) {
+  const t = maxCount > minCount ? (count - minCount) / (maxCount - minCount) : 1;   // 0 = fewest, 1 = most
+  const r = 66 + 17 * Math.sqrt(count);                        // size follows item count only
+  const a = 0.18 + 0.77 * t;                                   // faint wash -> deep green
+  gGlow.append('circle').attr('cx', x).attr('cy', y).attr('r', r).attr('fill', 'url(#g)').attr('fill-opacity', a);
+  if (key) gGlow.append('circle').attr('class', 'deep').attr('data-k', key).attr('cx', x).attr('cy', y).attr('r', r).attr('fill', 'url(#g)').attr('fill-opacity', Math.min(1, a + 0.35));
+}
+
+
+// ---- Top level: one glow per theme along the snail spiral ----
+function renderTop(model) {
+  const { W, H } = size();
+  const cl = [...model.clusters.values()].sort((a, b) => (a.key === GROWING) - (b.key === GROWING) || b.total - a.total);
+  cl.forEach(c => {
+    const shown = c.members.filter(it => model.visible.has(it)).length;
+    c.R = Math.max(chipW(c.key) / 2 + 14, 30 + 15 * Math.sqrt(shown)) + (c.hidden ? 6 + 3 * Math.sqrt(c.hidden) : 0);
+  });
+  spiralLayout(cl, W, H, 64);
+
+  const edgePoint = (a, b) => {
+    const dx = b.cx - a.cx, dy = b.cy - a.cy, d = Math.hypot(dx, dy) || 1;
+    const gap = d - a.r - b.r;
+    const t = gap > 0 ? (a.r + gap / 2) / d : a.r / (a.r + b.r);
+    return [a.cx + dx * t, a.cy + dy * t];
+  };
+  const nodes = [...model.visible].map(it => {
+    const cs = it.keys.map(k => model.clusters.get(k));
+    const bridge = cs.length === 2;
+    const [tx, ty] = bridge ? edgePoint(cs[0], cs[1]) : [cs[0].cx, cs[0].cy];
+    return { item: it, r: 5.5, tx, ty, bridge, spread: bridge ? 10 : cs[0].r };
+  });
+  scatter(nodes, W, H, 11, cl.map(c => chipSpot(c.cx, c.cy, c.key)));
+
+  const svg = d3.create('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('class', 'fade').attr('role', 'img').attr('aria-label', 'Themes in the archive, each a green glow of dots around its name');
+  defsFor(svg, [['g', HEAT, 1]]);
+  const gGlow = svg.append('g').style('mix-blend-mode', 'multiply');
+  const gTrail = svg.append('g'), gLinks = svg.append('g'), gHit = svg.append('g'), gNodes = svg.append('g'), gLab = svg.append('g');
+
+  // The snail's trail: a faint dotted line from the biggest theme out to the growing tip.
+  if (cl.length > 1) gTrail.append('path').attr('class', 'trail').attr('d', d3.line().curve(d3.curveCatmullRom.alpha(0.5))(cl.map(c => [c.cx, c.cy])));
+
+  const maxTotal = d3.max(cl, c => c.total);
+  cl.forEach(c => {
+    densityGlow(gGlow, c.cx, c.cy, c.key, c.total, maxTotal, c.key, d3.min(cl, k => k.total));
+    const deepen = on => gGlow.selectAll('.deep').classed('on', function () { return on && this.dataset.k === c.key; });
+    // "Still growing" explains itself in a small pop-up on hover, instead of a note under the map.
+    const note = c.key === GROWING && c.folded ? `<b>Still growing</b><small>Themes with only a few items so far: ${c.folded.map(esc).join(', ')}. As they gather more, they become patches of their own, out at the snail’s growing tip.</small>` : null;
+    const hover = on => { deepen(on); if (note) { if (on) showNote(note, c.cx, c.cy - 16); else hideTip(); } };
+    const open = () => go(c.key);
+    gHit.append('circle').attr('class', 'hit').attr('cx', c.cx).attr('cy', c.cy).attr('r', c.r + 10)
+      .on('click', open)
+      .on('mouseenter', () => { hover(true); gLab.selectAll('.clabel').classed('hot', function () { return this.dataset.k === c.key; }); })
+      .on('mouseleave', () => { hover(false); gLab.selectAll('.clabel').classed('hot', false); });
+    labelFor(gLab, c.cx, c.cy, c.key, `${c.total} ${c.total === 1 ? 'item' : 'items'}`, c.hidden ? `+${c.hidden} more →` : '', open, `Open ${c.key}, ${c.total} items`)
+      .on('mouseenter focus', () => hover(true)).on('mouseleave blur', () => hover(false));
+  });
+
+  nodes.filter(n => n.bridge).forEach(n => {
+    n.item.keys.forEach(k => {
+      const mates = nodes.filter(m => !m.bridge && m.item.keys[0] === k);
+      const near = d3.least(mates, m => (m.x - n.x) ** 2 + (m.y - n.y) ** 2);
+      if (near) gLinks.append('path').attr('class', 'link').attr('d', `M${n.x},${n.y} Q${(n.x + near.x) / 2 + (near.y - n.y) * 0.15},${(n.y + near.y) / 2 - (near.x - n.x) * 0.15} ${near.x},${near.y}`);
+    });
+  });
+
+  nodeGroup(gNodes, nodes, false, null);
+  mount(svg);
+
+  $('crumb').innerHTML = `<span class="counts">${model.list.length} resources · ${cl.length} themes</span>`;
+  renderStart(model);
+  $('list').innerHTML = '';
+  $('foot').innerHTML = '';
+}
+
+// ---- Inside a theme: every dot, grouped by kind, same chips and glows as the home page ----
+function renderInside(model, key) {
+  const c = model.clusters.get(key);
+  const { W } = size();
+  const groups = TYPES.map(t => ({ t, key: t.plural, members: c.members.filter(it => it.type === t.key) })).filter(g => g.members.length);
+  groups.forEach(g => { g.R = Math.max(chipW(g.key) / 2 + 14, 30 + 17 * Math.sqrt(g.members.length)); });
+  const H = Math.max(460, Math.min(W < 640 ? 920 : 720, 280 + 60 * Math.sqrt(c.total) * (W < 640 ? 1.6 : 1)));
+  spiralLayout(groups, W, H, 70);
+  const nodes = [];
+  groups.forEach(g => g.members.forEach(it => nodes.push({ item: it, g, r: 7.5, tx: g.cx, ty: g.cy, spread: g.r })));
+  scatter(nodes, W, H, 5, groups.map(g => chipSpot(g.cx, g.cy, g.key)));
+
+  const svg = d3.create('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('class', 'fade').attr('role', 'img').attr('aria-label', `${key}, grouped by kind of resource`);
+  defsFor(svg, [['g', HEAT, 1]]);
+  const gGlow = svg.append('g').style('mix-blend-mode', 'multiply');
+  const gNodes = svg.append('g'), gLab = svg.append('g');
+  const maxKind = d3.max(groups, g => g.members.length);
+  groups.forEach(g => {
+    densityGlow(gGlow, g.cx, g.cy, g.key, g.members.length, maxKind, null, d3.min(groups, k => k.members.length));
+    labelFor(gLab, g.cx, g.cy, g.key, `${g.members.length} ${g.members.length === 1 ? 'item' : 'items'}`, '', null, '');
+  });
+  nodeGroup(gNodes, nodes, true, key);
+  mount(svg);
+
+  $('crumb').innerHTML = `<button class="back" id="back">← all themes</button><h2>${esc(key)}</h2>`;
+  $('back').onclick = () => go(null);
+  $('start').innerHTML = '';
+  $('start').style.height = '0px';
+  $('list').innerHTML = groups.map(g => `<section><h3>${shapeSvg(g.t.key, 'var(--ink)', 6)}${g.t.plural}</h3><ul>${
+    g.members.map(it => `<li><button data-id="${it.id}"><span class="t">${esc(it.title)}</span><span class="d">${fmtDate(it.date) || '–'}</span></button></li>`).join('')
+  }</ul></section>`).join('');
+  $('list').querySelectorAll('button[data-id]').forEach(b => b.onclick = () => openPanel(model.list.find(it => it.id === b.dataset.id)));
+  const bridges = c.members.filter(it => it.keys.length > 1).length;
+  $('foot').innerHTML = (c.folded ? `Themes growing here: ${c.folded.map(esc).join(', ')}. ` : '') + (bridges ? `${bridges} item${bridges > 1 ? 's' : ''} here also belong${bridges > 1 ? '' : 's'} to another theme.` : '');
+}
+
+// The "start here" row is gone; its space is kept on the home page so the map stays where it was.
+function renderStart() {
+  $('start').innerHTML = '';
+  $('start').style.height = '36px';
+}
+
+function renderLegend(model) {
+  const n = k => model.list.filter(it => it.type === k).length;
+  $('legend').innerHTML = TYPES.filter(t => n(t.key)).map(t => `<span>${shapeSvg(t.key, 'var(--muted)')}${t.plural}</span>`).join('');
+}
+
+function mount(svg) {
+  const map = $('map');
+  map.querySelectorAll('svg').forEach(s => s.remove());
+  map.insertBefore(svg.node(), $('tip'));
+}
+
+function showTip(d) {
+  const tip = $('tip'), map = $('map'), svg = map.querySelector('svg');
+  const k = map.clientWidth / (+svg.getAttribute('viewBox').split(' ')[2] || map.clientWidth);
+  tip.innerHTML = `<b>${esc(d.item.title)}</b><small>${TYPE[d.item.type].label}${d.item.date ? ' · ' + fmtDate(d.item.date) : ''}${d.item.keys.length > 1 ? ' · ' + d.item.keys.map(esc).join(' ↔ ') : ''}</small>`;
+  tip.hidden = false;
+  const x = d.x * k, y = d.y * k, w = tip.offsetWidth;
+  tip.style.left = Math.max(0, Math.min(map.clientWidth - w, x - w / 2)) + 'px';
+  tip.style.top = (y - tip.offsetHeight - 14 < 0 ? y + 16 : y - tip.offsetHeight - 14) + 'px';
+}
+function hideTip() { $('tip').hidden = true; }
+// A small pop-up anchored above a point on the map (used for the "Still growing" theme).
+function showNote(html, x, y) {
+  const tip = $('tip'), map = $('map'), svg = map.querySelector('svg');
+  const k = map.clientWidth / (+svg.getAttribute('viewBox').split(' ')[2] || map.clientWidth);
+  tip.innerHTML = html; tip.hidden = false;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.max(0, Math.min(map.clientWidth - w, x * k - w / 2)) + 'px';
+  tip.style.top = (y * k - h - 10 < 0 ? y * k + 46 : y * k - h - 10) + 'px';
+}
+
+let lastFocus = null, current = null;
+function openPanel(it) {
+  if (!it) return;
+  lastFocus = document.activeElement;
+  state.sel = it.id;
+  d3.selectAll('g.node').classed('sel', d => d.item.id === it.id);
+  const model = current;
+  const near = model.list.filter(o => o !== it && o.keys.some(k => it.keys.includes(k))).sort(byRecent).slice(0, 5);
+  const p = $('panel');
+  p.innerHTML = `
+    <button class="x" id="px" aria-label="Close">✕</button>
+    <span class="type">${shapeSvg(it.type, colOf(it), 6)}${TYPE[it.type].label.toLowerCase()}</span>
+    <h3>${esc(it.title)}</h3>
+    ${it.authors ? `<div class="meta">${esc(it.authors)}</div>` : ''}
+    <div class="meta">${[it.date ? fmtDate(it.date) : '', it.shared_by ? 'shared by ' + esc(it.shared_by) : ''].filter(Boolean).join(' · ')}</div>
+    ${it.desc ? `<p>${esc(it.desc)}</p>` : ''}
+    <div class="tags">${it.tags.map((t, i) => {
+      const k = model.clusters.has(t) ? t : GROWING;
+      return `<button data-k="${esc(k)}" class="${i < 2 ? '' : 'loose'}" title="${i < 2 ? 'Decides where this dot sits' : 'Extra tag'}">${esc(t)}</button>`;
+    }).join('')}${(it.extra || []).map(t => `<span class="extra">${esc(t)}</span>`).join('')}</div>
+    ${it.link ? `<a class="open-link" href="${esc(it.link)}" target="_blank" rel="noopener">Open ↗</a>` : ''}
+    ${it.archive ? `<a class="archived" href="${esc(it.archive)}" target="_blank" rel="noopener">Archived copy ↗</a>` : ''}
+    ${near.length ? `<h4>nearby</h4><div class="near">${near.map(o => `<button data-id="${o.id}">${shapeSvg(o.type, colOf(o), 4.5)}<span>${esc(o.title)}</span></button>`).join('')}</div>` : ''}`;
+  p.classList.add('open'); p.setAttribute('aria-hidden', 'false');
+  $('px').onclick = closePanel;
+  p.querySelectorAll('.near button').forEach(b => b.onclick = () => openPanel(model.list.find(o => o.id === b.dataset.id)));
+  p.querySelectorAll('.tags button').forEach(b => b.onclick = () => { closePanel(); go(b.dataset.k); });
+  $('px').focus();
+}
+function closePanel() {
+  const p = $('panel');
+  p.classList.remove('open'); p.setAttribute('aria-hidden', 'true');
+  state.sel = null;
+  d3.selectAll('g.node').classed('sel', false);
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+function go(key) {
+  const h = key ? '#c-' + slug(key) : '';
+  if (location.hash !== h) { if (h) location.hash = h; else history.replaceState(null, '', location.pathname + location.search); }
+  state.view = key; render();
+  if (key) $('crumb').scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+}
+function fromHash() {
+  const m = location.hash.match(/^#c-([a-z0-9-]+)$/);
+  if (!m) return null;
+  return [...buildModel(items(), state.cap).clusters.keys()].find(k => slug(k) === m[1]) || null;
+}
+function render() {
+  hideTip();
+  current = buildModel(items(), state.cap);
+  renderLegend(current);
+  if (state.view && current.clusters.has(state.view)) renderInside(current, state.view);
+  else { state.view = null; renderTop(current); }
+}
+
+window.addEventListener('hashchange', () => { state.view = fromHash(); render(); });
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+
+load().then(ok => {
+  if (!ok) { $('status').textContent = 'The archive couldn’t load just now. Please try again in a moment.'; return; }
+  $('status').remove();
+  state.view = fromHash();
+  render();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => render());
+});
+</script>
+</body>
+</html>
